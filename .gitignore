@@ -11,6 +11,12 @@
 # Test binary, built with `go test -c`
 *.test
 
+# Build output
+/bin/
+
+# Local runtime config (keep config.example.yaml committed)
+/config.yaml
+
 # Code coverage profiles and other test artifacts
 *.out
 coverage.*
@@ -28,5 +34,5 @@ go.work.sum
 .env
 
 # Editor/IDE
-# .idea/
-# .vscode/
+.idea/
+.vscode/

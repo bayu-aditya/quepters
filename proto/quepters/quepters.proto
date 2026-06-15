@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package quepters;
+
+// NOTE: The message and field names below are part of an externally-defined
+// contract with the downstream gRPC services. They intentionally diverge from
+// buf's STANDARD naming conventions (PascalCase fields, no version suffix); the
+// corresponding lint rules are excepted in buf.yaml.
+service QueptersService {
+  rpc Handler(HandlerInput) returns (HandlerOutput);
+}
+
+message HandlerInput {
+  bytes EventData = 1;
+}
+
+message HandlerOutput {
+  bool Ack = 1;
+}

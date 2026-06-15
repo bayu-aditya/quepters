@@ -1,0 +1,36 @@
+# quepters configuration example.
+#
+# Run with: quepters --config config.yaml
+# The file is hot-reloaded: edits are picked up without a restart.
+
+# Logrus level: trace, debug, info, warn, error, fatal, panic. Default: info.
+log_level: "INFO"
+
+# Optional listen address for the HTTP server that serves both /metrics
+# (Prometheus) and /health (k8s probes).
+server:
+  http_addr: ":9090"
+
+# Named, reusable connection definitions. Each entry has exactly one transport.
+connectors:
+  nats_staging:
+    nats:
+      host: "192.168.221.224:31175"
+      user: "app-backend-staging"
+      pass: "foo"
+  api_staging:
+    grpc:
+      host: "http://localhost:8080" # http:// = plaintext, https:// = TLS.
+
+# Adapters wire one input connector to one output connector. Add as many as
+# needed; each name must be unique.
+adapters:
+  case_1:
+    input:
+      nats:
+        connector_id: "nats_staging"
+        subscription_id: "staging-tenant-worker-filter" # existing durable consumer
+        # stream: "my-stream"  # optional; auto-discovered when omitted
+    output:
+      grpc:
+        connector_id: "api_staging"

@@ -1,0 +1,10 @@
+all: false
+dir: "internal/mocks"
+pkgname: "mocks"
+filename: "{{.InterfaceName | snakecase}}.go"
+formatter: goimports
+packages:
+  github.com/bayu-aditya/quepters/internal/connector:
+    interfaces:
+      InputConnector:
+      OutputConnector:
